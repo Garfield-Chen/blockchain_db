@@ -14,7 +14,16 @@ import base64
 app = Flask(__name__)
 connect_db_list = dict()
 
-@app.route('/search_data', methods=['POST'])
+"""
+api/search_data post
+in
+keywords    string  
+
+out
+msg    string
+datalist    list
+"""
+@app.route('/api/search_data', methods=['POST'])
 def search_data():
     _result_msg = "done"
     _datalist = []
@@ -43,6 +52,15 @@ def search_data():
     _resultDict = dict(msg=("%s") % (_result_msg), datalist=_datalist)
     return _resultDict
 
+"""
+api/get_data post
+in
+blockid    string  
+
+out
+msg    string
+data    string
+"""
 @app.route('/get_data', methods=['POST'])
 def get_data():
     _result_msg = "done"
@@ -76,7 +94,16 @@ def get_data():
     _resultDict = dict(msg=("%s") % (_result_msg), data=_blockdata)
     return _resultDict
 
-@app.route('/block_height', methods=['POST'])
+"""
+api/block_height post
+in
+blockid    string  [if it's empty , return the chain height]
+
+out
+msg    string
+blockheight    string
+"""
+@app.route('/api/block_height', methods=['POST'])
 def block_height():
     _result_msg = "done"
 
@@ -120,7 +147,19 @@ def block_height():
     _resultDict = dict(msg=("%s") % (_result_msg), blockheight=_block_height)
     return _resultDict
 
-@app.route('/push_data', methods=['POST'])
+"""
+api/push_data post
+in
+key    string  
+data    string
+ * index_key    string
+
+out
+msg    string
+blockid    string
+blockheight    string
+"""
+@app.route('/api/push_data', methods=['POST'])
 def push_data():
     _result_msg = "done"
     _block_id = ""
@@ -206,7 +245,17 @@ def push_data():
     _resultDict = dict(msg=("%s") % (_result_msg), blockid=_block_id,blockheight=_block_height)
     return _resultDict
 
-@app.route('/search_userkey', methods=['POST'])
+"""
+api/search_userkey post
+in
+username    string
+userpassword    string
+
+out
+msg    string
+key    string
+"""
+@app.route('/api/search_userkey', methods=['POST'])
 def close_db():
     _result_msg = "done"
     _userkey = ""
@@ -242,8 +291,15 @@ def close_db():
     _resultDict = dict(msg=("%s") % (_result_msg),key=_userkey)
     return _resultDict
 
+"""
+api/connect_db post
+in
+key    string
 
-@app.route('/connect_db', methods=['POST'])
+out
+msg    string
+"""
+@app.route('/api/connect_db', methods=['POST'])
 def connect_db():
     _result_msg = "done"
     _userkey = ""
@@ -287,7 +343,17 @@ def connect_db():
     _resultDict = dict(msg=("%s") % (_result_msg))
     return _resultDict
 
-@app.route('/generate_key', methods=['POST'])
+"""
+api/generate_key post
+in
+username    string
+userpassword    string
+
+out
+msg    string
+user_key    string
+"""
+@app.route('/api/generate_key', methods=['POST'])
 def generate_key():
     _result_msg = "done"
     _userkey = ""
